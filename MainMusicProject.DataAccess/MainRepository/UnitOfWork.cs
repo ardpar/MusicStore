@@ -16,10 +16,13 @@ namespace MainMusicProject.DataAccess.MainRepository
             _db = db;
             category = new CategoryRepository(db);
             sp_call = new SPCallRepository(_db);
+            cover = new CoverTypeRepository(_db);
         }
         public ICategoryRepository category { get; private set; }
 
         public ISPCallRepository sp_call { get; private set; }
+
+        public ICoverTypeRepository cover { get; private set; }
 
         public void Dispose()
         {

@@ -8,6 +8,8 @@ namespace MainMusicProject.DataAccess.IMainRepository
     {
         ICategoryRepository category { get; }
         ISPCallRepository sp_call { get; }
+
+        ICoverTypeRepository cover { get; }
         void Save();
     }
 }
