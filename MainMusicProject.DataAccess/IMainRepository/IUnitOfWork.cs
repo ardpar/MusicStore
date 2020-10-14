@@ -10,6 +10,7 @@ namespace MainMusicProject.DataAccess.IMainRepository
         ISPCallRepository sp_call { get; }
 
         ICoverTypeRepository cover { get; }
+        IProductRepository product { get; }
         void Save();
     }
 }
