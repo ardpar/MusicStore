@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using MainMusicProject.DataAccess.IMainRepository;
@@ -39,7 +40,7 @@ namespace MainMusicStore.Areas.Admin.Controllers
         #region API CALLS
         public IActionResult GetAll()
         {
-            var allObj = _uow.product.GetAll();
+            var allObj = _uow.product.GetAll(includeProperties:"Category");
             return Json(new { data = allObj });
         }
 
@@ -96,24 +97,75 @@ namespace MainMusicStore.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Upsert(Product product)
+        public IActionResult Upsert(ProductVM productVM)
         {
             if (ModelState.IsValid)
             {
-                if (product.Id == 0)
+
+                string webRootPath = _hostEnvironment.WebRootPath;
+                var files = HttpContext.Request.Form.Files;
+
+                if (files.Count > 0)
+                {
+                    string fileName = Guid.NewGuid().ToString();
+                    var upload = Path.Combine(webRootPath, @"images\products");
+                    var extension = Path.GetExtension(files[0].FileName);
+
+                    if (productVM.Product.ImageUrl != null)
+                    {
+                        var imagePath = Path.Combine(webRootPath, productVM.Product.ImageUrl.TrimStart('\\'));
+                        if (System.IO.File.Exists(imagePath))
+                        {
+                            System.IO.File.Delete(imagePath);
+                        }
+                    }
+
+                    using (var fileStream = new FileStream(Path.Combine(upload, fileName + extension), FileMode.Create))
+                    {
+                        files[0].CopyTo(fileStream);
+                    };
+                    productVM.Product.ImageUrl = @"\images\products\" + fileName + extension;
+                }
+                else
+                {
+                    if (productVM.Product.Id != 0)
+                    {
+                        var productData = _uow.product.Get(productVM.Product.Id);
+                        productVM.Product.ImageUrl = productData.ImageUrl;
+                    }
+                }
+                if (productVM.Product.Id == 0)
                 {
                     //Create
-                    _uow.product.Add(product);
+                    _uow.product.Add(productVM.Product);
                 }
                 else
                 {
                     //Update
-                    _uow.product.Update(product);
+                    _uow.product.Update(productVM.Product);
                 }
                 _uow.Save();
                 return RedirectToAction("Index");
             }
-            return View(product);
+            else
+            {
+                productVM.CategoryList = _uow.category.GetAll().Select(a => new SelectListItem
+                {
+                    Text = a.CategoryName,
+                    Value = a.Id.ToString()
+                });
+
+                productVM.CoverTypeList = _uow.cover.GetAll().Select(a => new SelectListItem
+                {
+                    Text = a.Name,
+                    Value = a.Id.ToString()
+                });
+                if (productVM.Product.Id != 0)
+                {
+                    productVM.Product = _uow.product.Get(productVM.Product.Id);
+                }
+            }
+            return View(productVM.Product);
         }
     }
 }
