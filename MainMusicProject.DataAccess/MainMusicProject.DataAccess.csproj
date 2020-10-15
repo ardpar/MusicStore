@@ -5,6 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20201015101055_AddApplicationUser.cs" />
+    <Compile Remove="Migrations\20201015101055_AddApplicationUser.Designer.cs" />
+    <Compile Remove="Migrations\20201015101446_applicationUser.cs" />
+    <Compile Remove="Migrations\20201015101446_applicationUser.Designer.cs" />
+    <Compile Remove="Migrations\20201015102336_AddApplicationUserToDb.cs" />
+    <Compile Remove="Migrations\20201015102336_AddApplicationUserToDb.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.35" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.3" />

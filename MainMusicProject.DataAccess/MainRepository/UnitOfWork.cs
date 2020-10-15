@@ -18,6 +18,8 @@ namespace MainMusicProject.DataAccess.MainRepository
             sp_call = new SPCallRepository(_db);
             cover = new CoverTypeRepository(_db);
             product = new ProductRepository(_db);
+            company = new CompanyRepository(_db);
+            applicationUser = new ApplicationUserRepository(_db);
         }
 
         
@@ -28,6 +30,10 @@ namespace MainMusicProject.DataAccess.MainRepository
         public ICoverTypeRepository cover { get; private set; }
 
         public IProductRepository product { get; private set; }
+
+        public ICompanyRepository company { get; private set; }
+
+        public IApplicationUserRepository applicationUser { get; private set; }
 
         public void Dispose()
         {
