@@ -6,12 +6,14 @@ using Dapper;
 using MainMusicProject.DataAccess.IMainRepository;
 using MainMusicStore.Models.DbModels;
 using MainMusicStore.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace MainMusicStore.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = ProjectConstant.Role_Admin )]
     public class CoverTypeController : Controller
     {
         #region Variables

@@ -15,6 +15,10 @@ namespace MainMusicProject.DataAccess.IMainRepository
         ICompanyRepository company { get; }
         IApplicationUserRepository applicationUser { get; }
 
+        IShoppingCardRepository shoppingCard { get; }
+        IOrderDetailsRepository orderDetails { get; }
+        IOrderHeaderRepository orderHeader { get; }
+
         void Save();
     }
 }

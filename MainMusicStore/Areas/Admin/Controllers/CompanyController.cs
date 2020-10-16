@@ -4,12 +4,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using MainMusicProject.DataAccess.IMainRepository;
 using MainMusicStore.Models.DbModels;
+using MainMusicStore.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace MainMusicStore.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = ProjectConstant.Role_Admin + "," + ProjectConstant.Role_Employee)]
     public class CompanyController : Controller
     {
         #region Variables

@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using MainMusicProject.DataAccess.IMainRepository;
 using MainMusicStore.Data;
 using MainMusicStore.Models.DbModels;
+using MainMusicStore.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -12,6 +14,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 namespace MainMusicStore.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = ProjectConstant.Role_Admin)]
     public class UserController : Controller
     {
         #region Variables

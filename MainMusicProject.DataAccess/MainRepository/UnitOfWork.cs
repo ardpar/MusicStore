@@ -20,6 +20,10 @@ namespace MainMusicProject.DataAccess.MainRepository
             product = new ProductRepository(_db);
             company = new CompanyRepository(_db);
             applicationUser = new ApplicationUserRepository(_db);
+            shoppingCard = new ShoppingCardRepository(_db);
+            orderDetails = new OrderDetailsRepository(_db);
+            orderHeader = new OrderHeaderRepository(_db);
+
         }
 
         
@@ -34,6 +38,12 @@ namespace MainMusicProject.DataAccess.MainRepository
         public ICompanyRepository company { get; private set; }
 
         public IApplicationUserRepository applicationUser { get; private set; }
+
+        public IShoppingCardRepository shoppingCard { get; private set; }
+
+        public IOrderDetailsRepository orderDetails { get; private set; }
+
+        public IOrderHeaderRepository orderHeader { get; private set; }
 
         public void Dispose()
         {
