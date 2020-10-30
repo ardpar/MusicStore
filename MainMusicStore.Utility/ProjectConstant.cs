@@ -26,5 +26,33 @@ namespace MainMusicStore.Utility
         public const string Role_Employee = "Employee";
 
 
+        public const string shoppingCard = "ShoppingCard";
+
+
+        public static double GetPriceBaseOnQuantity(int quantity, double price, double price50, double price100)
+        {
+            if (quantity < 50)
+            {
+                return price;
+            }
+            else
+            {
+                if (quantity < 100)
+                {
+                    return price50;
+                }
+                else
+                {
+                    return price100;
+                }
+            }
+        }
+
+        public static string ConvertToRawHtml(string description)
+        {
+            return description;
+        }
+
+
     }
 }
